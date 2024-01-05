@@ -1,0 +1,412 @@
+\documentclass{jlreq}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 欧文TTF/OTFフォントを利用するにはfontspec.styをロードする必要あり
+%% 和文TTF/OTFフォントを利用するにはluatexja-fontspec.styをロードする必要あり
+%% luatexja-fontspec.styはfontspec.styをないぶてきにロードする
+%% lualatex-ja-preset.sty は luatexja-fontspec.styをロードする
+%% つまり次の1行でluatexja-fontspec.sty, fontspec.styも自動的にロードされる
+\usepackage[no-math,deluxe,expert,haranoaji]{luatexja-preset}
+%%%%
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{pxrubrica}
+\usepackage[default]{fontsetup}
+%%%% tabular環境の改良版
+\usepackage{tabularray}
+\UseTblrLibrary{booktabs}
+%%%% ハイパーリンク
+%%%% hyperref.sty は preamble の最後で読み込む
+\usepackage{hyperref}
+\usepackage{xurl}
+\hypersetup{
+  bookmarks=true,
+  bookmarksnumbered=true,
+  pdfauthor={iotsuka1958}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{luatexja-otf}
+\ltjsetparameter{jacharrange={-2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+uplatexからlualatexへの移行を考えます。
+あわせてドキュメントクラスをjsarticleからjlreqにします。
+
+いろいろとひっかりそうなところがありそうなので、
+メモしておきます。
+\end{abstract}
+
+\section{editor}
+
+\subsection{emacs}
+
+\section{Fonts}
+
+\subsection{欧文フォント}
+A quick brown fox jumps over the lazy dog. 0123
+
+\subsubsection{Variou fonts}
+
+{\fontspec{TeXGyreAdventor-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreBonum-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreChorus-MediumItalic} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreCursor-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreHeros-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyrePagella-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyrePagellaMath-Regular} The quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreSchola-Regular} A quick brown fox jumps over the lazy dog.}
+
+{\fontspec{TeXGyreTermes-Regular} A quick brown fox jumps over the lazy dog.}
+
+
+
+
+
+\subsubsection{series}
+{The quick brown fox jumps over the lazy dog.}
+
+{\bfseries The quick brown fox jumps over the lazy dog.}
+
+{\sffamily The quick brown fox jumps over the lazy dog.}
+
+{\bfseries\sffamily The quick brown fox jumps over the lazy dog.}
+
+
+
+\subsection{和文フォント}
+
+
+
+
+{\jfontspec{ud digi kyokasho n-r} UD教科書体N--R：これはどんな字体かな123}
+{\fontspec{ud digi kyokasho n-r} 123}
+
+{\jfontspec{HaranoAjiMincho-Regular} \ruby{原}{はら}の味明朝：これはどんな字体かな123}
+{\fontspec{HaranoAjiMincho-Regular} 123}
+
+{\jfontspec{MSMincho} MS明朝：これはどんな字体かな123}
+{\fontspec{MSMincho} 123}
+
+{\jfontspec{YuMincho-Regular} \ruby{游明朝}{ゆう|みん|ちょう}：これはどんな字体かな123}
+{\fontspec{YuMincho-Regular} 123}
+
+{\jfontspec{IPAexMincho} IPA明朝：これはどんな字体かな123}
+{\fontspec{IPAexMincho} 123}
+
+{\jfontspec{HaranoAjiGothic-Regular} 原の味ゴシック：これはどんな字体かな123}
+{\fontspec{HaranoAjiGothic-Regular} 123}
+
+{\jfontspec{MS Gothic} MSゴシック：これはどんな字体かな123}
+{\fontspec{MS Gothic} 123}
+
+{\jfontspec{YuGothic-Regular} 游ゴシック：これはどんな字体かな123}
+{\fontspec{YuGothic-Regular} 123}
+
+{\jfontspec{IPAexGothic} IPAゴシック：これはどんな字体かな123}
+{\fontspec{IPAexGothic} 123}
+
+{\jfontspec{MEIRYO} メイリオ：これはどんな字体かな123}
+{\fontspec{MEIRYO} 123}
+
+{\gtfamily あいうABC123}
+
+{\gtfamily\bfseries あいうABC123}
+
+{\sffamily あいうABC123}
+
+{\sffamily\bfseries あいうABC123}
+
+123ABC
+
+{\sffamily 123ABC}
+
+{\bfseries\sffamily 123ABC}
+
+{\bfseries 123ABC}
+
+{\rmfamily 123ABC}{\ttfamily 123ABC}{\itshape 12BC3ABC}{\scshape abc}
+\textsc{abc}
+\textsc{Small Capital}
+
+\emph{123ABC}
+
+fiction
+
+{\fontspec{Iwona-Regular} Piyopiyoこのように和文フォントは変わりません}
+
+{\fontspec{TeXGyreChorus-MediumItalic} これは Zapf Chancery フォントで書かれた文です。}
+
+%%%%%%%%%%%%%%%
+\section{unicode}
+
+
+\subsection{下の横棒が長い「吉」}
+
+\UTF{2603}
+
+Unicodeでどちらも直接入力できます。
+
+Unicode番号で指定するなら、
+吉は\texttt{\textbackslash{}UTF\symbol{123}5409\symbol{125}}、
+\UTF{20BB7}は\texttt{\backslash{}UTF\{{}20BB7\}{}}。
+
+CID番号で指定するなら、
+吉は\texttt{\textbackslash{}CID\symbol{123}1634\symbol{125}}、
+\UTF{20BB7}は\texttt{\textbackslash{}CID\symbol{123}13706\symbol{125}}。
+
+
+\symbol{64}\symbol{"40}\UTF{40}\CID{33}@\texttt{@}\verb|@|
+
+ABCDEFGH
+
+{\fontspec{Times New Roman} ABCDEFGH}
+
+ＡＢＣＤＥＦＧＨ
+
+\CID{790}\CID{791}\CID{792}\CID{793}\CID{794}\CID{795}\CID{796}\CID{797}
+
+
+\CID{34}\CID{35}\CID{36}\CID{37}\CID{38}\CID{39}\CID{40}\CID{41}
+
+
+\UTF{41}\UTF{42}\UTF{43}\UTF{44}\UTF{45}\UTF{46}\UTF{47}\UTF{48}
+
+\symbol{64}\symbol{"40}あ\texttt{@}\verb|@|
+\bigskip
+
+\begin{tblr}{
+    hline{1,Z} = { 0.08em },
+    hline{2} = { 0.04em },
+    colspec = {lll}
+  }
+入力方法&出力&メモ\\
+Unicodeで入力します&ﾘBﾟｷ&ただしエディタ上は化けています\\
+\texttt{\backslash{}UTF\{{}20BB7\}{}}&\UTF{20BB7}&Unicode番号で指定\\
+\texttt{\backslash{}symbol{\{}"20BB7\}{}}&\symbol{"20BB7}&これでもいける
+ \\
+\texttt{\backslash{}CID\{{}13706\}{}}&\CID{13706}&CID番号で指定
+\end{tblr}
+
+\bigskip
+
+\mbox{}
+
+\subsection{葛}
+
+「葛」も「\CID{1481}{}」もUnicode番号はU$+$845B。
+でもCID番号は別々に振られてます。
+
+
+\bigskip
+
+\begin{tblr}{
+    hline{1,Z} = { 0.08em },
+    hline{2} = { 0.04em },
+    colspec = {lll}
+  }
+入力方法&出力&メモ\\
+Unicodeで入力します&葛&エディタ上で化けません\\
+\texttt{\backslash{}UTF\{{}845B\}{}}&\UTF{845B}&Unicode番号で指定すると
+ こっち\\
+\texttt{\backslash{}symbol{\{}"845B\}{}}&\symbol{"845B}&\\
+\texttt{葛\backslash{}symbol{\{}"E0101\}{}}&葛
+ \symbol{"E0101}&\texttt{\backslash{}UTF\{{}845B\}{}}にIVS\footnote{Ide
+ ographic Variation Sequence/Selector}という枝番をつけてもいける\\
+\texttt{葛\backslash{}symbol{\{}"E0100\}{}}&葛\symbol{"E0100}&枝番を変え
+ るとこうなる\\
+\texttt{\backslash{}CID\{{}7652\}{}}&\CID{7652}&CID番号で指定& \\
+\texttt{\backslash{}CID\{{}1481\}{}}&\CID{1481}&CID番号で指定& \\
+\end{tblr}
+
+
+
+
+
+
+
+
+
+
+
+Location: Москва, Ц 
+ентральный административный округ,
+ Москва, ЦФО, РФ 
+
+
+
+
+\section{url}
+
+\url{https://qiita.com/nozma/items/21c56c7319e4fefceb79}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{表}
+
+\subsection{普通の表}
+
+
+\begin{tblr}{
+    width = { 0.85\linewidth },
+%    hline{1,Z} = { 0.08em },
+%    hline{3} = { 0.05em },
+%    hline{2} = {3-4}{ 0.04em },
+%    vline{4} = { dashed },
+    colspec = { clX[1,l]X[1,l] },
+    column{1} = { valign = h, font = {\sffamily} },
+    row{even} = { bg = blue8 },
+    % column{1} = { bg = {} },
+    row{1,2} = { halign = c, font = {\bfseries\sffamily}, bg = gray6, fg = white },
+    cell{1}{1} = { r = 2, c = 1 }{ halign = c, valign = m }, % 島嶼
+    cell{1}{2} = { r = 2, c = 1 }{ halign = c, valign = m }, % 地方
+    cell{1}{3} = { r = 1, c = 2 }{ halign = c }, % 都道府県
+    cell{4}{1} = { r = 5, c = 1 }{ halign = c} % 本州
+  }
+  島嶼   & 地方               & 都道府県                 & 都道府県                                         \\
+  島嶼   & 地方               & 政令指定都市あり         & 政令指定都市なし                                 \\
+  北海道 & 北海道地方         & 北海道                   &                                                  \\
+  本州   & 東北地方           & 宮城県                   & 青森県、岩手県、秋田県、山形県、福島県           \\
+  本州   & 関東地方           & 埼玉県、千葉県、神奈川県 & 茨城県、栃木県、群馬県、東京都                   \\
+  本州   & 中部地方           & 新潟県、静岡県、愛知県   & 富山県、石川県、福井県、山梨県、長野県、岐阜県   \\
+  本州   & 近畿地方           & 京都府、大阪府、兵庫県   & 三重県、滋賀県、奈良県、和歌山県                 \\
+  本州   & 中国地方           & 岡山県、広島県           & 鳥取県、島根県、山口県                           \\
+  四国   & 四国地方           &                          & 徳島県、香川県、愛媛県、高知県                   \\
+  九州   & {九州・\\沖縄地方} & 福岡県、熊本県           & 佐賀県、長崎県、大分県、宮崎県、鹿児島県、沖縄県
+\end{tblr}
+
+
+\newpage
+
+
+
+\subsection{長～い表}
+\DefTblrTemplate{contfoot-text}{normal}{次ページに続く}
+\SetTblrTemplate{contfoot-text}{normal}
+\DefTblrTemplate{conthead-text}{normal}{（続き）}
+\SetTblrTemplate{conthead-text}{normal}
+\begin{longtblr}[caption={piyopiyo}]{colspec={lX},rowhead=1}
+\toprule
+箇所&意見\\
+\midrule
+p.1目次&
+【連載・県立{学}校の今】とあるが、
+実際のページでは【連載・県立{高}校の今】となっている\\
+\addlinespace
+p.8左段の第2段落&
+「{あ}り方」と「{在}り方」が混在\\
+\addlinespace
+p.9左段第1段落&
+「アンケートを募った」とあるが、違和感。「意見を募る」とはいうが、「アンケートを募る」とはいわないのではないか。一般には「アンケートを実施する」ないし「アンケートを取る」ではないか\\
+\addlinespace
+p.10左段5行目&
+「濫觴」は、さすがに難解すぎないか。せめて「{濫觴}{らんしょう}」とルビはふるべき\\
+\addlinespace
+p.11右段20行目以降&
+人事に関する話が続く。教職員の任用に関する教育委員会への意見具申は学校運営協議会の役割のひとつではあるが、機微な話題なので生涯学習課、教育総務課、教職員課はいやがるのではないか\\
+p.12左段第3段落&
+「次世代の教育環境や人材育成を俯瞰した先進的なビジョンを持つことが重要」とあるが、「俯瞰した」に違和感。「教育環境を俯瞰する」「人材育成を俯瞰する」とはいわないのではいか。「次世代の教育環境や人材育成に対する先進的な展望を持つことが重要」くらいでいい\\
+\addlinespace
+p.12右段18行目&
+「役目を果たしている」とあるが、「誰が役目を果たしているのか」、主語がよくわからない\\
+\addlinespace
+p.12右段27行目&
+「次代を支える職業人」とあるが、内容的にそれでいいのか。たしかに職業人にも「ベテラン職業人」と「次代を支える職業人」がいるだろうが、この文脈では違和感がある。これだと「ベテラン職業人」は招へいできないことになるがそれでいいのか。ここは「地域を支える職業人」とすべきではないか\\
+\addlinespace
+p.14左段13行目&
+「私は{この}「松戸でいちばんいい学校をめざして」という言葉が大好きである」とある。画像にある表現を受けて「この」といっているのだろうが、読者はとまどうとおもう\\
+\addlinespace
+p.14右段16行目&
+「家庭科教諭の先生」はくどい\\
+\addlinespace
+p.16左段6行目&
+「触させる」とあるが、「触{れ}させる」ではないか\\
+\addlinespace
+p20--1
+上段の第2段落&
+「用務員」という表現がでてくる。日常的には「用務員」が使われているかもしれないが、紙においては「学校技能員」としなくていいか\\
+\addlinespace
+p20--2
+4行目&
+「言い放たれた」という表現がでてくるが、少し乱暴な響きがあります。そう発言した子供が悪いような印象につながる\\
+\addlinespace
+p.24いちばん上&
+「数投運動」って、専門用語??\\
+\addlinespace
+p.29右段の下から4行目&
+改段落であるなら1字下げが必要\\
+\bottomrule
+\end{longtblr}
+
+\newpage
+
+
+\begin{tikzpicture}[auto,>=latex, thick, scale=.5]
+\node (P) {$P$};
+\node (B) [right of=P] {$B$};
+\node (A) [below of=P] {$A$};
+\node (C) [below of=B] {$C$};
+\node (P1) [node distance=1.4cm, left of=P, above of=P] {$\hat{P}$};
+\draw[->] (P) to node {$f$} (B);
+\draw[->] (P) to node [swap] {$g$} (A);
+\draw[->] (A) to node [swap] {$f$} (C);
+\draw[->] (B) to node {$g$} (C);
+\draw[->, bend right] (P1) to node [swap] {$\hat{g}$} (A);
+\draw[->, bend left] (P1) to node {$\hat{f}$} (B);
+\draw[->, dashed] (P1) to node {$k$} (P);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[>=latex, thick, scale=2]
+\node (P) {$P$};
+\node (B) [right of=P] {$B$};
+\node (A) [below of=P] {$A$};
+\node (C) [below of=B] {$C$};
+\node (P1) [node distance=1.4cm, left of=P, above of=P] {$\hat{P}$};
+\draw[->] (P) to node {$f$} (B);
+\draw[->] (P) to node [swap] {$g$} (A);
+\draw[->] (A) to node [swap] {$f$} (C);
+\draw[->] (B) to node {$g$} (C);
+\draw[->, bend right] (P1) to node [swap] {$\hat{g}$} (A);
+\draw[->, bend left] (P1) to node {$\hat{f}$} (B);
+\draw[->, dashed] (P1) to node {$k$} (P);
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[scale=.5]
+\draw[very thick] (0,0) circle (2cm);%時計の外周
+\foreach \angle / \label in 
+  {0/3, 30/2, 60/1, 90/12, 120/11, 150/10, 180/9, 210/8, 240/7, 270/6, 300/5, 330/4} 
+  { 
+   \draw (\angle:1.8cm) -- (\angle:2cm); 
+   \node at (\angle:1.5cm) {\textsf{\label}}; 
+  } 
+\foreach \angle in {0,90,180,270} 
+   \draw[thick] (\angle:1.7cm) -- (\angle:2cm); 
+\draw[line width=3pt, cap=round] (0,0) -- (145:0.8cm);%短針
+\draw[line width=3pt, cap=round] (0,0) -- (30:1.2cm);%長針
+\end{tikzpicture}%
+
+\begin{tikzpicture}
+\draw[very thick] (0,0) circle (2cm);%時計の外周
+\foreach \angle / \label in 
+  {0/3, 30/2, 60/1, 90/12, 120/11, 150/10, 180/9, 210/8, 240/7, 270/6, 300/5, 330/4} 
+  { 
+   \draw (\angle:1.8cm) -- (\angle:2cm); 
+   \node at (\angle:1.5cm) {\textsf{\label}}; 
+  } 
+\foreach \angle in {0,90,180,270} 
+   \draw[thick] (\angle:1.7cm) -- (\angle:2cm); 
+\draw[line width=3pt, cap=round] (0,0) -- (145:0.8cm);%短針
+\draw[line width=3pt, cap=round] (0,0) -- (30:1.2cm);%長針
+\end{tikzpicture}%
+\end{document}
